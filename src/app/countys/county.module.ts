@@ -9,10 +9,8 @@ import { CountyService } from '../county.service';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {
-        path: 'countys',
-        component: CountyListComponent
-      }
+      { path: 'countys', component: CountyListComponent },
+      
       // ,
       // {
       //   path: ':id',

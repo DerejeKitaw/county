@@ -17,9 +17,9 @@ import { RouterModule } from "@angular/router";
     BrowserModule,
     HttpModule,
     RouterModule.forRoot([
+      { path: '', redirectTo: 'countys', pathMatch: 'full' },
       // { path: 'welcome', component: WelcomeComponent },
-      // { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+      // { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
     AppRoutingModule,
     CountyModule
