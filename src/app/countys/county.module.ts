@@ -10,7 +10,7 @@ import { CountyService } from '../county.service';
     CommonModule,
     RouterModule.forChild([
       {
-        path: '',
+        path: 'countys',
         component: CountyListComponent
       }
       // ,

@@ -1,13 +1,22 @@
 /* Defines the product entity */
 export interface ICounty {
-    id: number;
-    countyName: string;
-    countyCode: string;
-    category: string;
-    tags?: string[];
-    releaseDate: string;
-    price: number;
-    description: string;
-    starRating: number;
-    imageUrl: string;
+_id: number;   
+countyId: number; 
+WindSpeed: number;   
+groundSnowLoad: number;   
+FireLaneRequirement: string;
+RoofMountIncludesWellAndSeptic: boolean;
+RoofMountIncludesSitePlan: boolean;
+FootingPlanRequired: boolean;
+RapidShutdown: boolean;
+Stampeddrawing: string;
+Certletter: number;
+NEC: string;
+IBC: string; 
+IRC: string; 
+county: string;
+age: number;   
+isActive: boolean;
+  
+
 }

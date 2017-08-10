@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CountyModule } from './countys/county.module';
+import { HttpModule } from "@angular/http";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -13,6 +15,12 @@ import { CountyModule } from './countys/county.module';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    RouterModule.forRoot([
+      // { path: 'welcome', component: WelcomeComponent },
+      // { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+    ]),
     AppRoutingModule,
     CountyModule
   ],
