@@ -7,20 +7,20 @@ import { AppComponent } from './app.component';
 import { CountyModule } from './countys/county.module';
 import { HttpModule } from "@angular/http";
 import { RouterModule } from "@angular/router";
+import { HomeComponent } from './home/home.component';
+import { CountyFilterPipe } from './countys/county-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    CountyFilterPipe,
     
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'countys', pathMatch: 'full' },
-      // { path: 'welcome', component: WelcomeComponent },
-      // { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
-    ]),
+    
     AppRoutingModule,
     CountyModule
   ],

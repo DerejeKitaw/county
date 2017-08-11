@@ -1,9 +1,9 @@
-/* Defines the product entity */
+/* Defines the county entity */
 export interface ICounty {
-_id: number;   
-countyId: number; 
-WindSpeed: number;   
-groundSnowLoad: number;   
+// _id: number;   
+countyId: number;
+WindSpeed: number; 
+groundSnowLoad: number; 
 FireLaneRequirement: string;
 RoofMountIncludesWellAndSeptic: boolean;
 RoofMountIncludesSitePlan: boolean;
@@ -12,11 +12,9 @@ RapidShutdown: boolean;
 Stampeddrawing: string;
 Certletter: number;
 NEC: string;
-IBC: string; 
+IBC: string;
 IRC: string; 
-county: string;
-age: number;   
+countyName: string;
+age: number;
 isActive: boolean;
-  
-
 }
