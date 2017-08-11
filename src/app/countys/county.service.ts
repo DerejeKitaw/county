@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+
 import { ICounty } from "./county";
+
 
 
 
 @Injectable()
 export class CountyService {
-    private _countyUrl = 'api/countys/countys.json';
+    private _countyUrl = './api/countys/countys.json';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: HttpClient) { }
 
     getCountys(): Observable<ICounty[]> {
-        return this._http.get(this._countyUrl)
-            .map((response: Response) => <ICounty[]> response.json())
-            .do(data => console.log('All: ' +  JSON.stringify(data)))
+      return this._http.get<ICounty[]>(this._countyUrl)
+            .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
@@ -28,10 +28,16 @@ export class CountyService {
             .map((countys: ICounty[]) => countys.find(p => p.countyId === id));
     }
 
-    private handleError(error: Response) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
+    private handleError(err: HttpErrorResponse) {
+        let errorMessage = '';
+        if (err.error instanceof Error) {
+            // A client-side or network error occurred. Handle it accordingly.
+            errorMessage = `An error occurred: ${err.error.message}`;
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+        }
+        console.error(errorMessage);
+        return Observable.throw(errorMessage);}
 }

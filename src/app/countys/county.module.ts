@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CountyListComponent } from './county-list/county-list.component';
 import { CommonModule } from '@angular/common';
