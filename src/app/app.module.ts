@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CountyModule } from './countys/county.module';
-import { HttpModule } from "@angular/http";
+// import { HttpModule } from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { CountyFilterPipe } from '../../src/app/countys/county-filter.pipe';
@@ -19,7 +20,7 @@ import { CountyFilterPipe } from '../../src/app/countys/county-filter.pipe';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     
     AppRoutingModule,
     CountyModule
