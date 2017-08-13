@@ -5,7 +5,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-
+// import {HttpClientModule} from '@angular/common/http';
 import { ICounty } from "./county";
 
 
@@ -13,17 +13,32 @@ import { ICounty } from "./county";
 
 @Injectable()
 export class CountyService {
-    private _countyUrl = './api/countys/countys.json';
+    private _countyUrl = 'api/countys.json';
 
     constructor(private _http: HttpClient) { }
 
-    getCountys(): Observable<ICounty[]> {
-      return this._http.get<ICounty[]>(this._countyUrl)
-            .do(data => console.log('All: ' + JSON.stringify(data)))
-            .catch(this.handleError);
+    // getCountys(): Observable<ICounty[]> {
+    //   return this._http.get<ICounty[]>(this._countyUrl)
+    //         .do(data => console.log('All: ' + JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
+    getCountys()  {
+      return this._http.get<ICounty>(this._countyUrl)
+  .subscribe(
+  	data => {console.log('All: ' + JSON.stringify(data))},
+    (err: HttpErrorResponse) => {
+      if (err.error instanceof Error) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.log('An error occurred:', err.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+      }
     }
+  };
 
-    getCounty(id: number): Observable<ICounty> {
+    getCounty(id: number) {
         return this.getCountys()
             .map((countys: ICounty[]) => countys.find(p => p.countyId === id));
     }
