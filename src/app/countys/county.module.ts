@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
-// import {HttpClient} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+// import {HttpClient} from '@angular/common/http';
 import { CountyListComponent } from './county-list/county-list.component';
 import { CommonModule } from '@angular/common';
 import { CountyService } from './county.service';
 // import { CountyFilterPipe } from './county-filter.pipe';
-import {HttpClientModule} from '@angular/common/http';
+// import { BrowserModule } from '@angular/platform-browser';
+// import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   imports: [
-
-    HttpClientModule,
     CommonModule,
+// BrowserModule,
+    // HttpClientModule,
     RouterModule.forChild([
       { path: '', component: CountyListComponent }
-    ])
+    ]),
   ],
   declarations: [
     CountyListComponent

@@ -22,7 +22,7 @@ export class CountyListComponent implements OnInit {
     
 
     ngOnInit(): void {
-        
+        console.log(this.countyService);
         this.countyService.getCountys()
                 .subscribe(countys => this.countys = countys,
                            error => this.errorMessage = <any>error);
