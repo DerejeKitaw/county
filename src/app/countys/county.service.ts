@@ -27,7 +27,7 @@ export class CountyService {
 
     getCounty(id: number) {
         return this.getCountys()
-            .map((countys: ICounty[]) => countys.find(p => p.countyId === id));
+            .map((countys: ICounty[]) => countys.find(p => p.id === id));
     }
 
     private handleError(err: HttpErrorResponse): ErrorObservable {

@@ -11,11 +11,12 @@ import { RouterModule } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { CountyFilterPipe } from '../../src/app/countys/county-filter.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CountyFilterPipe,
+    CountyFilterPipe
     
   ],
   imports: [

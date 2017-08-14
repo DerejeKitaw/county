@@ -35,7 +35,7 @@
                 <tbody>
                     <tr *ngFor="let county of filteredCountys ">
                         
-                        <td><a   [routerLink]="['/countys', county.id]">{{county.countyName}}</a></td>
+                        <td><a   [routerLink]="[county.id]">{{county.countyName}}</a></td>
                         <td>{{ county.IRC  }}/{{ county.IRC  }}</td>
                         <td>{{ county.NEC }}</td>
                         <td>{{ county.Stampeddrawing}}</td>
@@ -43,7 +43,7 @@
                         
                        <td>
                             <a class="btn btn-primary" 
-                               [routerLink]="[county._id, 'edit']">
+                               [routerLink]="[county.id, 'edit']">
                                 Edit
                             </a>
                         </td>

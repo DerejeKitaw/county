@@ -1,7 +1,7 @@
 /* Defines the county entity */
 export interface ICounty {
 // _id: number;   
-countyId: number;
+id: number;
 WindSpeed: number; 
 groundSnowLoad: number; 
 FireLaneRequirement: string;

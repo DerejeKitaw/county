@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CountyListComponent } from './county-list/county-list.component';
 import { CountyService } from './county.service';
 import { CountyParameterService } from './county-parameter.service';
+import { CountyDetailComponent } from './county-detail/county-detail.component';
+import { CountyEditComponent } from './county-edit/county-edit.component';
 
 
 
@@ -16,12 +18,16 @@ import { CountyParameterService } from './county-parameter.service';
 // BrowserModule,
     // HttpClientModule,
     RouterModule.forChild([
-      { path: '', component: CountyListComponent }
+      { path: '', component: CountyListComponent },
+      { path: ':id', component: CountyDetailComponent },
+      { path: ':id/edit', component: CountyEditComponent },
+      // { path: '/:id/editReactive', component: CountyEditReactiveComponent }
     ]),
   ],
   declarations: [
-    CountyListComponent
-    // CountyFilterPipe
+    CountyListComponent,
+    CountyDetailComponent,
+    CountyEditComponent
   ],
   providers: [
     CountyService,

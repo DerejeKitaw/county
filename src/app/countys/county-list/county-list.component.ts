@@ -35,7 +35,7 @@ export class CountyListComponent implements OnInit {
       private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.listFilter = this.route.snapshot.queryParams['filterBy'] || '';
+        this.listFilter = this.route.snapshot.queryParams['id'] || '';
         // console.log("Befor countyService : " +this.countys);
         this.countyService.getCountys()
                 .subscribe(countys => {
