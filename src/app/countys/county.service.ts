@@ -21,7 +21,7 @@ export class CountyService {
     getCountys(): Observable<ICounty[]> {
         
       return this._http.get<ICounty[]>(this._countyUrl)
-            .do(data => console.log('All: ' + JSON.stringify(data)))
+            //.do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 

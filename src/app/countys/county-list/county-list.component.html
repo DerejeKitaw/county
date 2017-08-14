@@ -1,23 +1,20 @@
-<p>
-  county-list works!
-</p>
 <div class="panel panel-primary">
     <div class="panel-heading">
         {{pageTitle}}
     </div>
 
     <!-- Filter the Countys   -->
-    <div class="panel-body">
-        <!-- <div class="row">
+        <div class="panel-body">
+        <div class="row">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
                 <input type="text" [(ngModel)]="listFilter" />
             </div>
-        </div> -->
-        <!-- <div class="row" *ngIf="listFilter"> -->
-        <div class="row" *ngIf="true">
+        </div>
+
+        <div class="row" [hidden]="!listFilter">
             <div class="col-md-6">
-                <h3>Filtered by: {{listFilter}} </h3>
+                <h3>Couty filtered by: {{listFilter}}</h3>
             </div>
         </div>
 
@@ -28,29 +25,25 @@
                    *ngIf="countys && countys.length">
                 <thead>
                     <tr>
-
-                        <th>County</th>
-                        <th>Code</th>
-                        <th>Available</th>
-                        <th>Price</th>
-                        <th>5 Star Rating</th>
+                        <th>county Name</th>
+                        <th>IRC/IBC</th>
+                        <th>NEC</th>
+                        <th>Stamped Drawing</th>
+                        <th>WindSpeed</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let county of countys ">
+                    <tr *ngFor="let county of filteredCountys ">
                         
-                        <td><a [routerLink]="[county.id]" 
-                               [queryParams]="{filterBy: listFilter, showImage: showImage}">
-                            {{county.countyName}}
-                            </a>
-                        </td>
-                        <td>{{ county.WindSpeed  }}</td>
-                        <td>{{ county.countyId }}</td>
-                        <td>{{ county._id}}</td>
+                        <td><a   [routerLink]="['/countys', county.id]">{{county.countyName}}</a></td>
+                        <td>{{ county.IRC  }}/{{ county.IRC  }}</td>
+                        <td>{{ county.NEC }}</td>
+                        <td>{{ county.Stampeddrawing}}</td>
+                        <td>{{ county.WindSpeed}}</td>
                         
                        <td>
                             <a class="btn btn-primary" 
-                               [routerLink]="[county.id, 'edit']">
+                               [routerLink]="[county._id, 'edit']">
                                 Edit
                             </a>
                         </td>

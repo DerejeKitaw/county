@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import {HttpClient} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+
 import { CountyListComponent } from './county-list/county-list.component';
-import { CommonModule } from '@angular/common';
 import { CountyService } from './county.service';
-// import { CountyFilterPipe } from './county-filter.pipe';
-// import { BrowserModule } from '@angular/platform-browser';
-// import {HttpClientModule} from '@angular/common/http';
+import { CountyParameterService } from './county-parameter.service';
+
 
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
 // BrowserModule,
     // HttpClientModule,
     RouterModule.forChild([
@@ -22,6 +23,9 @@ import { CountyService } from './county.service';
     CountyListComponent
     // CountyFilterPipe
   ],
-  providers: [CountyService],
+  providers: [
+    CountyService,
+    CountyParameterService
+  ],
 })
 export class CountyModule { }
