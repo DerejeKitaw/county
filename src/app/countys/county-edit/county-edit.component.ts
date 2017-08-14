@@ -1,63 +1,102 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChildren, ElementRef} from '@angular/core';
 import { ICounty } from '../county';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountyService } from '../county.service';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControlName } from "@angular/forms";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-county-edit',
   templateUrl: './county-edit.component.html',
   styleUrls: ['./county-edit.component.sass']
 })
-export class CountyEditComponent implements OnInit {
-pageTitle: string = 'County Edit';
+export class CountyEditComponent implements OnInit, OnDestroy {
+    @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
+    pageTitle: string = 'County Edit';
     errorMessage: string;
-  CountyId: string;
+    CountyId: string;
+    countyForm: FormGroup;
+    county: ICounty;
+    private sub: Subscription;
     private currentCounty: ICounty;
     private originalCounty: ICounty;
     private dataIsValid: { [key: string]: boolean } = {};
+    // Use with the generic validation message class
+    displayMessage: { [key: string]: string } = {};
+    private validationMessages: { [key: string]: { [key: string]: string } };
+
 
     get isDirty(): boolean {
         return JSON.stringify(this.originalCounty) !== JSON.stringify(this.currentCounty);
     }
+    constructor(private fb: FormBuilder,
+                private route: ActivatedRoute,
+                private router: Router,
+                private countyService: CountyService,
+                ) { 
+                    this.route.params.subscribe(params => {
+                        this.CountyId = params.id;
+                        console.log('CountyId :'+this.CountyId);
+                        // Defines all of the validation messages for the form.
+                        // These could instead be retrieved from a file or database.
+                        this.validationMessages = {
+                                countyName: {
+                                    required: 'County name is required.',
+                                    minlength: 'County name must be at least three characters.',
+                                    maxlength: 'County name cannot exceed 50 characters.'
+                                }
+                        };
 
-    get county(): ICounty {
-        return this.currentCounty;
-    }
-    set county(value: ICounty) {
-        this.currentCounty = value;
-        // Clone the object to retain a copy
-        this.originalCounty = Object.assign({}, value);
-    }
 
-    constructor(private route: ActivatedRoute,
-        private router: Router,
-        private countyService: CountyService,
-        ) { 
-this.route.params.subscribe(params => {
-                    this.CountyId = params.id;
-                    console.log('CountyId :'+this.CountyId);
-                });
+                    });
 
         }
 
     ngOnInit(): void {
-        // Watch for changes to the resolve data
-        // this.route.data.subscribe(data => {
-        //      this.onCountyRetrieved(data['county']);
-        // });
+        this.countyForm = this.fb.group({
+            countyName: ['', [Validators.required,
+                               Validators.minLength(3),
+                               Validators.maxLength(50)]],
+            countyCode: ['', Validators.required],
+            tags: this.fb.array([]),
+            description: ''
+        });
+
+        // Read the county Id from the route parameter
+        this.sub = this.route.params.subscribe(
+            params => {
+                let id = +params['id'];
+                this.getCounty(id);
+            }
+        );
     }
 
-    // onCountyRetrieved(county: ICounty): void {
-    //     this.county = county;
+    getCounty(id: number): void {
+        this.countyService.getCounty(id)
+            .subscribe(
+                (county: ICounty) => this.onCountyRetrieved(county),
+                (error: any) => this.errorMessage = <any>error
+            );
+    }
+    onCountyRetrieved(county: ICounty): void {
+        if (this.countyForm) {
+            this.countyForm.reset();
+        }
+        this.county = county;
 
-    //     // Adjust the title
-    //     if (this.county.id === 0) {
-    //         this.pageTitle = 'Add County';
-    //     } else {
-    //         this.pageTitle = `Edit County: ${this.county.countyName}`;
-    //     }
-    // }
+        if (this.county.id === 0) {
+            this.pageTitle = 'Add County';
+        } else {
+            this.pageTitle = `Edit County: ${this.county.countyName}`;
+        }
 
+        // Update the data on the form
+        this.countyForm.patchValue({
+            countyName: this.county.countyName,
+            
+        });
+        
+    }
     deleteCounty(): void {
 
     }
@@ -91,26 +130,13 @@ this.route.params.subscribe(params => {
         this.currentCounty = null;
         this.originalCounty = null;
     }
-
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
     validate(): void {
         // Clear the validation object
         this.dataIsValid = {};
 
-        // 'info' tab
-        // if (this.county.countyName &&
-        //     this.county.countyName.length >= 3 &&
-        //     this.county.countyCode) {
-        //     this.dataIsValid['info'] = true;
-        // } else {
-        //     this.dataIsValid['info'] = false;
-        // }
-
-        // // 'tags' tab
-        // if (this.county.category &&
-        //     this.county.category.length >= 3) {
-        //     this.dataIsValid['tags'] = true;
-        // } else {
-        //     this.dataIsValid['tags'] = false;
-        // }
+        
     }
 }

@@ -5,8 +5,31 @@
     <div class="panel-heading">
         {{pageTitle}}
     </div>
+<div class="panel-body">
+    <form class="form-horizontal"
+          novalidate
+          (ngSubmit)="saveCounty()"
+          [formGroup]="countyForm"
+    >
+    <fieldset>
+        <div class="form-group" [ngClass]="{'has-error': displayMessage.countyName }">
+        <label class="col-md-2 control-label" for="productNameId">County Name</label>
+            <div class="col-md-8">
+                <input class="form-control" 
+                        id="countyNameId" 
+                        type="text" 
+                        placeholder="County Name (required)" 
+                        formControlName="countyName" />
+                <span class="help-block" *ngIf="displayMessage.countyName">
+                        {{displayMessage.countyName}}
+                </span>
+            </div>
+        </div>
+    </fieldset>
 
-    <!-- <div class="panel-footer">
+    </form>
+</div>
+ <div class="panel-footer">
         <div class="row">
             <div class="col-md-6 col-md-offset-2">
                 <span>
@@ -14,25 +37,25 @@
                             type="button"
                             style="width:80px;margin-right:10px"
                             [disabled]="!isValid()"
-                            (click)="saveProduct()">
+                            (click)="saveCounty()">
                         Save
                     </button>
                 </span>
                 <span>
                     <a class="btn btn-default"
-                        [routerLink]="['/products']">
+                        [routerLink]="['/countys']">
                         Cancel
                     </a>
                 </span>
                 <span>
                     <a class="btn btn-default"
-                        (click)="deleteProduct()">
+                        (click)="deleteCounty()">
                         Delete
                     </a>
                 </span>       
             </div>
         </div>
-    </div> -->
+    </div> 
 
     <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 
