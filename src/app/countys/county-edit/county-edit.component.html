@@ -8,20 +8,27 @@
 <div class="panel-body">
     <form class="form-horizontal"
           novalidate
-          (ngSubmit)="saveCounty()"
           [formGroup]="countyForm"
+          (ngSubmit)="saveCounty()"
     >
     <fieldset>
-        <div class="form-group" [ngClass]="{'has-error': displayMessage.countyName }">
-        <label class="col-md-2 control-label" for="productNameId">County Name</label>
+        <div class="form-group"
+            [ngClass]="{'has-error': (countyForm.get('countyName').touched || 
+                                    countyForm.get('countyName').dirty) &&
+                                    !countyForm.get('countyName').valid }">
+            <label class="col-md-2 control-label" for="countyNameId">County Name</label>
             <div class="col-md-8">
                 <input class="form-control" 
                         id="countyNameId" 
                         type="text" 
                         placeholder="County Name (required)" 
                         formControlName="countyName" />
-                <span class="help-block" *ngIf="displayMessage.countyName">
-                        {{displayMessage.countyName}}
+                <span class="help-block" *ngIf="(customerForm.get('countyName').touched || 
+                                                customerForm.get('countyName').dirty) && 
+                                                customerForm.get('countyName').errors">
+                    <span *ngIf="countyForm.get('countyName').errors.required">
+                        Please enter County name.
+                    </span>
                 </span>
             </div>
         </div>
