@@ -51,21 +51,21 @@ export class CountyService {
         // TODO
     }
 
-    private createCounty(county: ICounty, options: RequestOptions): Observable<ICounty> {
-        county.id = undefined;
-        return this._http.post(this._countyUrl, county)
-            .map(this.extractData)
-            .do(data => console.log('createCounty: ' + JSON.stringify(data)))
-            .catch(this.handleError);
-    }
+    // private createCounty(county: ICounty, options: RequestOptions): Observable<ICounty> {
+    //     county.id = undefined;
+    //     return this._http.post(this._countyUrl, county)
+    //         .map(this.extractData)
+    //         .do(data => console.log('createCounty: ' + JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
 
-    private updateCounty(county: ICounty, options: RequestOptions): Observable<ICounty> {
-        const url = `${this._countyUrl}/${county.id}`;
-        return this._http.put(url, county)
-            .map(() => county)
-            .do(data => console.log('updateCounty: ' + JSON.stringify(data)))
-            .catch(this.handleError);
-    }
+    // private updateCounty(county: ICounty, options: RequestOptions): Observable<ICounty> {
+    //     const url = `${this._countyUrl}/${county.id}`;
+    //     return this._http.put(url, county)
+    //         .map(() => county)
+    //         .do(data => console.log('updateCounty: ' + JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
 
     private extractData(response: Response) {
         let body = response.json();
